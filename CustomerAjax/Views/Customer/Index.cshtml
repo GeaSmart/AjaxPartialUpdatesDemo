@@ -16,6 +16,10 @@
         {
             selected = true;
         }
+        else
+        {
+            selected = false;
+        }
 
         @Html.RadioButton("Numero", customer.Id, selected);
         @Html.Label(customer.Name);
@@ -24,3 +28,8 @@
     <input type="submit" id="SubmitButton" value="Ver detalles" />
                 
 }
+
+<!--Vista parcial-->
+<div id="detail-section">
+    @Html.Partial("~/Views/Shared/_CustomerDetails.cshtml", Model.Item2)
+</div>

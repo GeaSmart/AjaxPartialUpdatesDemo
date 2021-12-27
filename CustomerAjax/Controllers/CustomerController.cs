@@ -24,7 +24,7 @@ namespace CustomerAjax.Controllers
 
         public IActionResult Index()
         {
-            Tuple<List<Customer>, Customer> tupla = new Tuple<List<Customer>, Customer>(listado, listado[0]);            
+            Tuple<List<Customer>, Customer> tupla = new Tuple<List<Customer>, Customer>(listado, listado[4]);            
 
             ViewData["PageTitle"] = "Customer";
             return View(tupla);
