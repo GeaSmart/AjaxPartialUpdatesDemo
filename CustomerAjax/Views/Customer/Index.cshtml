@@ -1,0 +1,26 @@
+﻿@model Tuple<List<Customer>,Customer>
+@{ 
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+
+    var selected = false;
+
+
+    foreach(var customer in Model.Item1)
+    {
+        if(customer.Id == Model.Item2.Id)
+        {
+            selected = true;
+        }
+
+        @Html.RadioButton("Numero", customer.Id, selected);
+        @Html.Label(customer.Name);
+        <br />
+    }
+    <input type="submit" id="SubmitButton" value="Ver detalles" />
+                
+}
