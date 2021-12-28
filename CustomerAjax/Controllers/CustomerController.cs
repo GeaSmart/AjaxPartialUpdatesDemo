@@ -24,10 +24,15 @@ namespace CustomerAjax.Controllers
 
         public IActionResult Index()
         {
-            Tuple<List<Customer>, Customer> tupla = new Tuple<List<Customer>, Customer>(listado, listado[4]);            
-
             ViewData["PageTitle"] = "Customer";
+            Tuple<List<Customer>, Customer> tupla = new Tuple<List<Customer>, Customer>(listado, listado[4]);                        
             return View(tupla);
+        }
+
+        public IActionResult OnSelectCustomer(string Numero)
+        {
+            var cliente = listado.Where(x => x.Id == Int32.Parse(Numero)).FirstOrDefault();
+            return PartialView("_CustomerDetails", cliente);
         }
     }
 }

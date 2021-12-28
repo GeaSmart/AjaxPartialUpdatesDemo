@@ -1,9 +1,10 @@
 ﻿@model Tuple<List<Customer>,Customer>
 @{ 
     Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+
 }
 
-@using (Html.BeginForm())
+@using (Ajax.BeginForm("OnSelectCustomer", "Customer"))
 {
     @Html.AntiForgeryToken();
 
@@ -33,3 +34,40 @@
 <div id="detail-section">
     @Html.Partial("~/Views/Shared/_CustomerDetails.cshtml", Model.Item2)
 </div>
+<script>
+    function SendAlumno() {
+
+        var id = $("#Id").val();
+        var nombres = $("#Nombres").val();
+        var apellidos = $("#Apellidos").val();
+        var aula = $("#Aula").val();
+
+        let alumno = {};
+        alumno.Id = id;
+        alumno.Nombres = nombres;
+        alumno.Apellidos = apellidos;
+        alumno.Aula = aula;
+
+
+        $.ajax({
+            type: 'POST',
+            url: '/Alumnos/AddAlumno',
+            data: JSON.stringify(alumno),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (result) {
+                $("#contenidoTablaAlumnos").append(
+                    '<tr><th scope="row">' + result.id + '</th>' +
+                    '<td>' + result.nombres + '</td>' +
+                    '<td>' + result.apellidos + '</td>' +
+                    '<td>' + result.aula + '</td></tr>'
+                )
+            },
+            error: function () {
+                alert("error!")
+            }
+        })
+        //console.log("str" + JSON.stringify(alumno));
+
+    }
+</script>
